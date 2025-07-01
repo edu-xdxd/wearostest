@@ -5,17 +5,17 @@ const router = express.Router();
 // POST /sensor-data - Crear nuevos datos de sensor
 router.post('/', async (req, res) => {
   try {
-    const { deviceId, heartRate, steps } = req.body;
+    const { deviceId, heartRate, steps, light } = req.body;
     
     // Validar que los campos requeridos estén presentes
-    if (!deviceId || heartRate === undefined || steps === undefined) {
+    if (!deviceId || heartRate === undefined || steps === undefined || light === undefined) {
       return res.status(400).json({ 
         error: 'Todos los campos son requeridos: deviceId, heartRate, steps' 
       });
     }
 
     // Validar que heartRate y steps sean números
-    if (typeof heartRate !== 'number' || typeof steps !== 'number') {
+    if (typeof heartRate !== 'number' || typeof steps !== 'number' || typeof light !== 'number') {
       return res.status(400).json({ 
         error: 'heartRate y steps deben ser números' 
       });
@@ -26,6 +26,7 @@ router.post('/', async (req, res) => {
       deviceId,
       heartRate,
       steps,
+      light,
       timestamp: new Date()
     });
 
